@@ -130,4 +130,8 @@ class FileController extends Controller
         return Excel::download(new ProductExport($request->ids), 'Product.csv');
     }
 
+    public function downloadDemoFile(){
+        $file =   public_path('Downloads/Dummy.csv');
+        return Response::download($file);
+    }
 }

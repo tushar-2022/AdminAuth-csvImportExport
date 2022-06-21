@@ -26,5 +26,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/import_export', [App\Http\Controllers\FileController::class, 'getImport'])->name('import_export');
     Route::post('/import_parse', [App\Http\Controllers\FileController::class, 'parseImport'])->name('import_parse');
     Route::post('/export_products', [App\Http\Controllers\FileController::class, 'exportProducts'])->name('export_products');
-
+    Route::any('/download-file', [App\Http\Controllers\FileController::class, 'downloadDemoFile'])->name('download-file');
 });

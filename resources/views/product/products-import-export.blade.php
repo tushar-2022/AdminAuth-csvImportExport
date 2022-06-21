@@ -1,12 +1,26 @@
 @extends('layouts.app')
 
+<script type="text/javascript">
+ 
+$(document).ready(function(){
+    $("#excel_file_download").on("click",function(){
+        window.location.href = '/download-file';
+    });
+
+});   
+</script>
+
+
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">CSV Import</div>
-
+                    <span class = "text-danger pull-right"> Please Uplode File in proper Format.You can check format and upload this file 
+                            <a href = "javascript:void(0);" id = "excel_file_download" > Download File Format </a>
+                    </span>
+                  
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{ route('import_parse') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
@@ -142,22 +156,3 @@
         </div>
     </div>
 @endsection
-<script type="text/javascript">
- 
-$(document).ready(function(){
-  $('#basic_validate').validate({
-  ignore: [], 
-    rules: {
-          sample_file: {
-            required: true,
-            checkExcel: true
-          },messages: {
-                     required: "File is Required ",
-                     checkExcel: "Only Excel File "
-          }
-    },
-    submitHandler: function(form) {
-        document.basic_validate.submit();
-    },
-  });   
-</script>
