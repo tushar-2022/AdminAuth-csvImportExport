@@ -37,16 +37,9 @@ class FileController extends Controller
 
             $import = new ProductImport();
             if ($request->has('header')) {
-                //Config::set('excel::import.startRow', 2);
-                $fileHandle = fopen($file, 'rb');
-                //echo "add\tfirst\tline\n";  // add your new first line.
-                fgets($fileHandle); // moves the file pointer to the next line.
-                //echo stream_get_contents($fileHandle); // flushes the remaining file.
-                fclose($fileHandle);
-                config(['excel.import.startRow' => 2]);
+                $import->setStartRow(2);
+                Excel::import($import, $file);
 
-                Excel::import($import, $file)->skip(1)->get();
-                return response()->json([ 'message' => $import->data->count() ."records got successfully uploaded" ]);
             }else{
                 Excel::import($import, $file);
             }
@@ -107,7 +100,7 @@ class FileController extends Controller
                
             }*/
 
-            return response()->json([ 'message' => $import->data->count() ."records successfully uploaded" ]);
+            return response()->json([ 'message' => $import->getRowCount() ."records successfully uploaded" ]);
         } else {
             //no file was uploaded
             throw new \Exception('No file was uploaded', Response::HTTP_BAD_REQUEST);

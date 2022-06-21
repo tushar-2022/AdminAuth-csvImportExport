@@ -15,7 +15,7 @@ class ProductMasterTable extends Migration
     {
         Schema::create('product_master_table', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('category')->unique();
+            $table->string('category');
             $table->string('brand_name');
             $table->timestamps();
         });

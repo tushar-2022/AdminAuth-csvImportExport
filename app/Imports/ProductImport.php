@@ -6,17 +6,21 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
-class ProductImport implements ToCollection
+class ProductImport implements ToCollection, WithStartRow
 {
+
+    private $startRows = 1;
+    private $rows = 0;
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function collection(Collection $rows)
+    public function collection(Collection $importRows)
     {
-      foreach ($rows as $importData) 
+      foreach ($importRows as $importData) 
       {
         Product::firstOrCreate([
             'brand_name' => $importData[2],
@@ -32,7 +36,25 @@ class ProductImport implements ToCollection
             'category' => $importData[1],
             'brand_name' => $importData[2]
         ]);
-                    
-     }
-   }
+
+        ++$this->rows;
+      }
+    }
+
+    public function getRowCount(): int
+    {
+        return $this->rows;
+    }
+
+
+    public function startRow(): int
+    {
+        return $this->startRows;
+    }
+    
+
+    public function setStartRow(int $startRow){
+        $this->startRows = $startRow;
+    }
+
 }
