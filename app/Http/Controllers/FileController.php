@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Config;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Exports\ProductExport;
+use App\Imports\ProductImport;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 
 
-class ImportController extends Controller
+class FileController extends Controller
 {
 
     public function getImport(){
 
-        return view('product/add-product');
+        return view('product/products-import-export');
     }
 
     public function parseImport(Request $request){
@@ -23,14 +27,34 @@ class ImportController extends Controller
         $file = $request->file('csv_file');
          
         if($file) {
+
             $filename = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension(); //Get extension of uploaded file
             $tempPath = $file->getRealPath();
             $fileSize = $file->getSize(); //Get size of uploaded file in bytes
             //Check for file extension and size
             $this->checkUploadedFileProperties($extension, $fileSize);
+
+            $import = new ProductImport();
+            if ($request->has('header')) {
+                //Config::set('excel::import.startRow', 2);
+                $fileHandle = fopen($file, 'rb');
+                //echo "add\tfirst\tline\n";  // add your new first line.
+                fgets($fileHandle); // moves the file pointer to the next line.
+                //echo stream_get_contents($fileHandle); // flushes the remaining file.
+                fclose($fileHandle);
+                config(['excel.import.startRow' => 2]);
+
+                Excel::import($import, $file)->skip(1)->get();
+                return response()->json([ 'message' => $import->data->count() ."records got successfully uploaded" ]);
+            }else{
+                Excel::import($import, $file);
+            }
+
+            
+
             //Where uploaded file will be stored on the server 
-            $location = 'uploads'; //Created an "uploads" folder for that
+            /*$location = 'uploads'; //Created an "uploads" folder for that
             // Upload file
             $file->move($location, $filename);
                 // In case the uploaded file path is to be stored in the database 
@@ -81,9 +105,9 @@ class ImportController extends Controller
                     $j--;
                 }
                
-            }
+            }*/
 
-            return response()->json([ 'message' => "$j records successfully uploaded" ]);
+            return response()->json([ 'message' => $import->data->count() ."records successfully uploaded" ]);
         } else {
             //no file was uploaded
             throw new \Exception('No file was uploaded', Response::HTTP_BAD_REQUEST);
@@ -92,7 +116,7 @@ class ImportController extends Controller
     }
 
     public function checkUploadedFileProperties($extension, $fileSize){
-        $valid_extension = array("csv"); //Only want csv files
+        $valid_extension = array("csv"); //Only csv files
         $maxFileSize = 2097152; // Uploaded file size limit is 2mb
         if (in_array(strtolower($extension), $valid_extension)) {
             if ($fileSize <= $maxFileSize) {
@@ -102,6 +126,15 @@ class ImportController extends Controller
         } else {
             throw new \Exception('Invalid file extension', Response::HTTP_UNSUPPORTED_MEDIA_TYPE); //415 error
         }
+    }
+
+    public function exportProducts(Request $request){
+        $request->validate([
+            'name' => 'required|max:7', 
+            'ids' => 'required|min:1'
+        ]);
+
+        return Excel::download(new ProductExport($request->ids), 'Product.csv');
     }
 
 }

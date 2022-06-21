@@ -14,12 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/import', [App\Http\Controllers\ImportController::class, 'getImport'])->name('import');
-Route::post('/import_parse', [App\Http\Controllers\ImportController::class, 'parseImport'])->name('import_parse');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/import_export', [App\Http\Controllers\FileController::class, 'getImport'])->name('import_export');
+    Route::post('/import_parse', [App\Http\Controllers\FileController::class, 'parseImport'])->name('import_parse');
+    Route::post('/export_products', [App\Http\Controllers\FileController::class, 'exportProducts'])->name('export_products');
+
+});

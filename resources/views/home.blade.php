@@ -14,7 +14,13 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                        <a class="nav-link" href="{{route('import_export')}}">
+                            <i class="fa fa-fw fa-area-chart"></i>
+                                <span class="nav-link-text">Import/Export</span>
+                         </a>
+                     </li>
+
                 </div>
             </div>
         </div>

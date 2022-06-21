@@ -15,8 +15,8 @@ class Product extends Model
             'brand_name', 
             'product_name', 
             'sku', 
-            'orginal_price', 
-            'receive_date', 
+            'original_price', 
+            'recieve_date', 
             'exp_date', 
             'image_urls'
     ];

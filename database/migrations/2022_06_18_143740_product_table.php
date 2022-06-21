@@ -18,9 +18,9 @@ class ProductTable extends Migration
             $table->string('brand_name');
             $table->string('product_name');
             $table->integer('sku');
-            $table->string('receive_date')->nullable();
+            $table->string('recieve_date')->nullable();
             $table->string('exp_date')->nullable();
-            $table->double('orginal_price');
+            $table->double('original_price');
             $table->string('image_urls');
             $table->timestamps();
         });
