@@ -62,7 +62,9 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">CSV Export</div>
-
+                     <span class = "text-danger pull-right"> Select appropriate columns to export.
+                    </span>
+                  
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{ route('export_products') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
