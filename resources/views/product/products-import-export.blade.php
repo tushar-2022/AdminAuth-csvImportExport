@@ -7,8 +7,8 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">CSV Import</div>
-                    <span class = "text-danger pull-right"> Please Uplode File in proper Format.You can check format and upload this file 
-                            <a href = "javascript:void(0);" id = "excel_file_download" > Download File Format </a>
+                    <span class = "text-info pull-right"> Upload file format can be downloaded from here.
+                            <a href = "javascript:void(0);" id = "excel_file_download" > Download </a>
                     </span>
                   
                     <div class="panel-body">
@@ -21,11 +21,11 @@
                                 <div class="col-md-6">
                                     <input id="csv_file" type="file" accept=".csv, text/csv" class="form-control" name="csv_file" required>
 
-                                    @if ($errors->has('csv_file'))
+                                   <!-- @if ($errors->has('csv_file'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('csv_file') }}</strong>
                                     </span>
-                                    @endif
+                                    @endif-->
                                 </div>
                             </div>
 
@@ -62,18 +62,30 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">CSV Export</div>
-                     <span class = "text-danger pull-right"> Select appropriate columns to export.
+                     <span class = "text-info pull-right"> Select appropriate columns to export.
                     </span>
                   
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{ route('export_products') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
+
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="ids[]" value="0" unchecked> Product Category
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
                              <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ids[]" value="1" checked> Brand Name
+                                            <input type="checkbox" name="ids[]" value="1" unchecked> Brand Name
                                         </label>
                                     </div>
                                 </div>
@@ -83,7 +95,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ids[]" value="2" checked> Product Name
+                                            <input type="checkbox" name="ids[]" value="2" unchecked> Product Name
                                         </label>
                                     </div>
                                 </div>
@@ -93,7 +105,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ids[]" value="3" checked> SKU
+                                            <input type="checkbox" name="ids[]" value="3" unchecked> SKU
                                         </label>
                                     </div>
                                 </div>
@@ -103,7 +115,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ids[]" value="4" checked> Original Price
+                                            <input type="checkbox" name="ids[]" value="4" unchecked> Original Price
                                         </label>
                                     </div>
                                 </div>
@@ -113,7 +125,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ids[]" value="5" checked> Recieve Date
+                                            <input type="checkbox" name="ids[]" value="5" unchecked> Recieve Date
                                         </label>
                                     </div>
                                 </div>
@@ -123,7 +135,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ids[]" value="6" checked> Expiry Date
+                                            <input type="checkbox" name="ids[]" value="6" unchecked> Expiry Date
                                         </label>
                                     </div>
                                 </div>
@@ -133,7 +145,7 @@
                                 <div class="col-md-6 col-md-offset-4">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="ids[]" value="7" checked> Image Urls
+                                            <input type="checkbox" name="ids[]" value="7" unchecked> Image Urls
                                         </label>
                                     </div>
                                 </div>

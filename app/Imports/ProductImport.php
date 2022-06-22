@@ -22,6 +22,12 @@ class ProductImport implements ToCollection, WithStartRow
     {
       foreach ($importRows as $importData) 
       {
+        
+        $category = Category::firstOrCreate([
+            'category' => $importData[1],
+            'brand_name' => $importData[2]
+        ]);
+
         Product::firstOrCreate([
             'brand_name' => $importData[2],
             'product_name' => $importData[3],
@@ -29,14 +35,11 @@ class ProductImport implements ToCollection, WithStartRow
             'recieve_date' => $importData[5],
             'exp_date' => $importData[6],
             'original_price' => $importData[7],
-            'image_urls' => $importData[8]
+            'image_urls' => $importData[8],
+            'category_id' => $category->id
         ]);
                     
-        Category::firstOrCreate([
-            'category' => $importData[1],
-            'brand_name' => $importData[2]
-        ]);
-
+        
         ++$this->rows;
       }
     }

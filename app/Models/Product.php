@@ -18,7 +18,8 @@ class Product extends Model
             'original_price', 
             'recieve_date', 
             'exp_date', 
-            'image_urls'
+            'image_urls',
+            'category_id'
     ];
 
 }

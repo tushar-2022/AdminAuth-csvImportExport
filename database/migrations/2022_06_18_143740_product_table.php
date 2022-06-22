@@ -22,6 +22,7 @@ class ProductTable extends Migration
             $table->string('exp_date')->nullable();
             $table->double('original_price');
             $table->string('image_urls');
+            $table->integer('category_id');
             $table->timestamps();
         });
     }

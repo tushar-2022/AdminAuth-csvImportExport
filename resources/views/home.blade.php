@@ -14,13 +14,14 @@
                         </div>
                     @endif
 
-                    <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+
+                    <li class="nav-item list-unstyled" data-toggle="tooltip" data-placement="right" title="import_export">
                         <a class="nav-link" href="{{route('import_export')}}">
                             <i class="fa fa-fw fa-area-chart"></i>
                                 <span class="nav-link-text">Import/Export</span>
                          </a>
                      </li>
-
+                    </ul>
                 </div>
             </div>
         </div>

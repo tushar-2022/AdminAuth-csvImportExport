@@ -123,7 +123,6 @@ class FileController extends Controller
 
     public function exportProducts(Request $request){
         $request->validate([
-            'name' => 'required|max:7', 
             'ids' => 'required|min:1'
         ]);
 
