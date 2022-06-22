@@ -11,7 +11,7 @@ use App\Exports\ProductExport;
 use App\Imports\ProductImport;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Response;
 
 
 class FileController extends Controller
@@ -100,7 +100,7 @@ class FileController extends Controller
                
             }*/
 
-            return response()->json([ 'message' => $import->getRowCount() ."records successfully uploaded" ]);
+            return back()->with( 'success', $import->getRowCount() ." records successfully uploaded" );
         } else {
             //no file was uploaded
             throw new \Exception('No file was uploaded', Response::HTTP_BAD_REQUEST);

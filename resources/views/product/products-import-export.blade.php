@@ -1,15 +1,5 @@
 @extends('layouts.app')
 
-<script type="text/javascript">
- 
-$(document).ready(function(){
-    $("#excel_file_download").on("click",function(){
-        window.location.href = '/download-file';
-    });
-
-});   
-</script>
-
 
 @section('content')
     <div class="container">
@@ -55,6 +45,12 @@ $(document).ready(function(){
                                         Import
                                     </button>
                                 </div>
+                                @if(session('success'))
+                                     <div class="alert alert-success" role="alert">
+                                         <strong>    {{ session('success') }} </strong>
+                                     </div>
+                                @endif
+
                             </div>
                         </form>
                     </div>
@@ -155,4 +151,15 @@ $(document).ready(function(){
             </div>
         </div>
     </div>
+
+<script type="text/javascript">
+ 
+$(document).ready(function(){
+    $("#excel_file_download").on("click",function(){
+        window.location.href = '/download-file';
+    });
+
+});   
+</script>
+
 @endsection
